@@ -1,0 +1,43 @@
+body { 
+  background-color: #EFEFEF; 
+  font-family: sans-serif;
+  font-size: 75%;
+}
+
+
+article {
+  border: solid 1px gray;
+  padding: 0;
+  margin-bottom: 2em;
+}
+
+article h2 {
+  margin: 0;
+  padding: .2em;
+  background-color: #CDCDCD;
+}
+
+article h2 small {
+  display: block;
+  font-size: 75%;
+  font-weight: normal;
+}
+
+article aside.date {
+  float:right;
+  font-size: 12px;
+  font-family: verdana;
+  margin:1em;
+}
+
+article ul {
+  xmargin:.5em;
+}
+
+article ul li:hover {
+  background-color: #DEDEDE;
+}
+
+.success { color: green; }
+.failure { color: red; }
+.success, .failure { list-style: none; font-family: "Verdana" }
