@@ -122,9 +122,10 @@ module("Another prototype example", function(assert) {
   function Foo() {
     this.value = 42;
   }
-  Foo.prototype = extend(Foo.prototype, {
-      method: function() {}
-  });
+  Foo.prototype = {
+      method: function() {},
+      constructor: Foo
+  };
 
   function Bar() {}
 
