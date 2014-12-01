@@ -1,0 +1,10 @@
+{
+  "name": "first-http",
+  "main": "app.js",
+  "scripts": {
+    "start": "PORT=8081 node app.js"
+  },
+  "dependencies": {
+    "colors": "^1.0.3"
+  }
+}
