@@ -1,0 +1,30 @@
+{
+  "name": "http-express",
+  "version": "1.0.0",
+  "description": "First HTTP server with express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isel-leic-pi/1415i-public"
+  },
+  "keywords": [
+    "http",
+    "express",
+    "simple",
+    "pi",
+    "web",
+    "server"
+  ],
+  "author": "Carlos Guedes et all",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isel-leic-pi/1415i-public/issues"
+  },
+  "homepage": "https://github.com/isel-leic-pi/1415i-public",
+  "dependencies": {
+    "express": "^4.10.4"
+  }
+}
