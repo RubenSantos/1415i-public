@@ -1,0 +1,17 @@
+<% include layout/top %>
+
+<div class="row">
+  <h1>HTTP echo</h1>
+
+  <% var objectTitle = "Headers"; %>
+  <% var objectValue = headers; %>
+  <% include partials/show-object-values %>
+
+  <% var objectTitle = "Cookies"; %>
+  <% var objectValue = cookies; %>
+  <% include partials/show-object-values %>
+
+</div>
+<hr>
+
+<% include layout/bottom %>

@@ -1,0 +1,25 @@
+<% include ./../layout/top %>
+
+<div class="row">
+  <h1>Login</h1>
+
+	<form role="form" method="POST" >
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Email address</label>
+	    <input type="email" autofocus name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Password</label>
+	    <input type="password" name="pwd" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	  </div>
+	  <div class="checkbox">
+	    <label>
+	      <input name="check" type="checkbox"> Check me out
+	    </label>
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
+</div>
+
+<% include ./../layout/bottom %>
