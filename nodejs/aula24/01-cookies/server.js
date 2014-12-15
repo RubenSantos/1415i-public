@@ -14,7 +14,14 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res) 
 {
-  res.render("home", { headers: req.headers, cookies: req.cookies });
+  res.render("home", { headers: req.headers, cookies: req.headers["cookie"] });
+});
+
+
+app.get("/getcookie", function(req, res) 
+{
+    res.setHeader("Set-Cookie", "useid=123EFrT2");
+    res.send("Ok. Cookie sent.");
 });
 
 
