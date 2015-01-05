@@ -5,30 +5,42 @@ module.exports = function(app)
     var express = require('express');
     var todosRouter = express.Router();
 
-    todosRouter.get('/', function getAllTodos(req, res)
+    todosRouter.get('/', function getAllTodos(req, res, next)
     {
-        var allTodos = db.findAll();
-        var model = { todos: allTodos };
-        res.render('todos/list', model );
+        db.findAll(function(err, todos)
+        {
+            if(err) return next(new Error(err));
+
+            var model = { todos: todos };
+            res.render('todos/list', model );
+        });
     });
 
     todosRouter.get('/new', function createNewTodo(req, res)
     {
-      res.render('todos/create', { title: "", description: "" });
+      res.render('todos/create', {todo: new db.Todo()});
     });
 
     todosRouter.post('/new', function createNewTodo(req, res)
     {
         var title = req.body.title;
         var description = req.body.description;
-        var todo = db.createNew(title, description);
+
+        var todo = new db.Todo(null, title, description, new Date(), false);
 
         if(title == "" || description == "") {
             res.flash("warning", "Não é possível criar a tarefa. Altere os valores e tente novamente.")
-            return res.render('todos/create', { title: title, description: description });
+            return res.render('todos/create', { todo: todo });
         }
 
-        res.redirect('/todos/#todo-' + todo.id);
+        db.createNew(todo, function (err, id) {
+            if(err) {
+                res.flash("warning", "Não é possível criar a tarefa. Altere os valores e tente novamente.")
+                return res.render('todos/create', { todo: todo });
+            }
+
+            res.redirect('/todos/#todo-' + id);
+        });
     });
 
     todosRouter.get('/edit/:id', loadTodoByIdToRequest, function editTodo(req, res)
@@ -48,9 +60,14 @@ module.exports = function(app)
 
         req.models.todo.title = title;
         req.models.todo.description = description;
-        db.edit(req.models.todo);
-
-        res.redirect('/todos/#todo-' + req.models.todo.id);
+        db.edit(req.models.todo, function(err, updatedTodo)
+        {
+            if(err) {
+                res.flash("warning", "Não é possível editar a tarefa. Altere os valores e tente novamente.")
+                return res.render('todos/edit', { todo: todo });
+            }
+            res.redirect('/todos/#todo-' + updatedTodo.id);
+        });
     });
 
     todosRouter.get('/delete/:id', loadTodoByIdToRequest, function deleteTodo(req, res)
@@ -60,15 +77,19 @@ module.exports = function(app)
 
     todosRouter.post('/delete/:id', function deleteTodo(req, res)
     {
-        db.deleteById(req.params.id);
-        return res.redirect("/todos");
+        db.deleteById(req.params.id, function(err) {
+            if(err) return next(new Error(err));
+            return res.redirect("/todos");
+        });
     });
 
-    todosRouter.post('/check/:id', function checkTodo(req, res)
+    todosRouter.post('/check/:id', function checkTodo(req, res, next)
     {
         var id = req.params.id;
-        db.checkOrUncheck(id);
-        return res.redirect('/todos/#todo-' + id);
+        db.checkOrUncheck(id, function(err) {
+            if(err) return next(new Error(err));
+            return res.redirect('/todos/#todo-' + id);
+        });
     });
 
     app.use("/todos", todosRouter);
@@ -78,12 +99,16 @@ module.exports = function(app)
     function loadTodoByIdToRequest(req, res, next)
     {
         var id = req.params.id;
-        var todo = db.getById(id);
-        if(todo == null) {
-            return res.send(404, "Tarefa não encontrada.");
-        }
-        req.models = req.models || {};
-        req.models.todo = todo;
-        next();
+        db.getById(req.params.id, function(err, todo) {
+            if(err) return next(err);
+
+            if(todo == null) {
+                return res.status(404).send("Tarefa não encontrada.");
+            }
+            req.models = req.models || {};
+            req.models.todo = todo;
+            next();
+        });
+
     }
 }

@@ -23,7 +23,7 @@ app.use(flash(app));
 
 app.locals.title = "Todo NaNet";
 app.locals.isActive = function (url) {
-    console.log(this);
+    //console.log(this);
     return true;
 };
 
@@ -47,7 +47,7 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
-            message: err.message,
+            message: err.message || "Unspecified Error",
             error: err
         });
     });
@@ -58,7 +58,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
-        message: err.message,
+        message: err.message || "Unspecified Error",
         error: {}
     });
 });
