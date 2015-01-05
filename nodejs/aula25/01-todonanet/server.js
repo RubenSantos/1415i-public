@@ -1,7 +1,7 @@
 // Note: To execute this application in debug execute:
-// 
-// OSX/Linux: DEBUG=todonanet,express:* nodemon server.js 
-// Windows: SET DEBUG=todonanet,express:* & nodemon server.js 
+//
+// OSX/Linux: DEBUG=todonanet,express:* nodemon server.js
+// Windows: SET DEBUG=todonanet,express:* & nodemon server.js
 //
 // More info: http://expressjs.com/guide/debugging.html
 

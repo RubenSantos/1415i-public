@@ -1,23 +1,35 @@
 <% include ./../_layouts/top %>
 
   <div class="container">
-    <h1>List of Todos</h1>
+
+
+    <h1>
+        <a href="/todos/new" class="btn btn-success pull-right" >+ Nova Tarefa</a>
+        Lista de Tarefas
+    </h1>
 
     <ul>
 
     <% todos.forEach(function(todo) { %>
 
-		<li style="list-style:none; margin-bottom:2em;">
-			<input type="checkbox" disabled <%= (todo.done ? "checked" : "") %> >
-			<%= todo.title %>
-			(<a href="/todos/delete/<%=todo.id%>">delete</a>)<br>
-			<small><%= todo.description %></small>
-		</li>
+        <form action="/todos/check/<%=todo.id%>" method="POST">
+		  <li class="todo-item" id="todo-<%=todo.id%>" >
+            <span class="pull-right">
+                <a title="Remover" href="/todos/delete/<%=todo.id%>"> <i class="glyphicon glyphicon-remove"></i></a>
+                <a title="Editar"  href="/todos/edit/<%=todo.id%>"> <i class="glyphicon glyphicon-edit"></i></a>
+            </span>
+
+			<input type="checkbox" <%= (todo.done ? "checked" : "") %> onclick="this.parentNode.parentNode.submit()" >
+
+			<%= todo.title %><br>
+			<small class="description text-muted"><%= todo.description %></small>
+            <div class="when pull-right"><span class="text-muted"><%=todo.creationDate.toLocaleDateString()%> - <%=todo.creationDate.toLocaleTimeString()%></span></div>
+		  </li>
+        </form>
 
 	<% }) %>
 	</ul>
 
-	<a href="/todos/new" class="btn btn-success" >+ New</a>
 
   </div>
 

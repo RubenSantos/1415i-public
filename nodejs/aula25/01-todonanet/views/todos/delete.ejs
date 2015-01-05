@@ -1,0 +1,19 @@
+<% include ./../_layouts/top %>
+
+<div class="container">
+    <h1>Remover</h1>
+
+    <form method="POST" class="form-horizontal" role="form">
+      <p>Tem a certeza que pretende remover a tarefa  <strong><%= todo.title%></strong> ?</p>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary">Sim</button>
+          <a href="/todos" >Não</a>
+        </div>
+      </div>
+    </form>
+
+
+</div>
+
+<% include ./../_layouts/bottom %>

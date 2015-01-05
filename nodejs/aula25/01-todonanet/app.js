@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var flash = require('./flash');
 
 var app = express();
 
@@ -18,7 +19,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash(app));
 
+app.locals.title = "Todo NaNet";
+app.locals.isActive = function (url) {
+    console.log(this);
+    return true;
+};
 
 var routes = require('./routes/index');
 app.use('/', routes);
