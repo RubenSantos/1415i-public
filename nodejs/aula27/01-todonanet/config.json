@@ -1,0 +1,5 @@
+{
+    "db": {
+        "connString": "postgres://todonanetxuser:todonanetuserpassword@localhost/todonanet"
+    }
+}

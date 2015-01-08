@@ -1,0 +1,36 @@
+<% include ./../_layouts/top %>
+
+  <style type="text/css">
+    .todo {
+        list-style:none; margin-bottom:2em;
+    }
+    .todo:target {
+        background-color: #FFFFE2;
+    }
+  </style>
+
+  <div class="container">
+    <h1>List of Todos</h1>
+
+    <ul>
+
+    <% todos.forEach(function(todo) { %>
+
+		<li id="todo-<%=todo.id%>" class="todo" >
+			<form method="post" action="/todos/toggle/<%=todo.id%>" style="display:inline" >
+                <input style="zoom:3" type="checkbox" <%= (todo.done ? "checked" : "") %>
+                       onclick="this.parentNode.submit()" >
+            </form>
+			<%= todo.title %>
+			(<a href="/todos/delete/<%=todo.id%>">delete</a>)<br>
+			<small><%= todo.description %></small>
+		</li>
+
+	<% }) %>
+	</ul>
+
+	<a href="/todos/new" class="btn btn-success" >+ New</a>
+
+  </div>
+
+<% include ./../_layouts/bottom %>
