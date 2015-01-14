@@ -1,0 +1,32 @@
+
+li.todo-item {
+    list-style: none;
+    padding:1em;
+    clear:both;
+}
+
+.todo-item:hover {
+    background-color:rgb(244, 244, 244);
+}
+
+.todo-item:target {
+    background-color:rgb(255, 255, 226);
+}
+
+.todo-item .checkbox {
+    xfont-size:30px;
+    display: inline-block;
+    xfloat: left;
+    xposition: relative;
+    xleft: -1px;
+    xtop: -4px;
+}
+
+.todo-item .description {
+
+}
+
+.todo-item .when {
+    margin: 1em;
+    font-size: 60%;
+}
