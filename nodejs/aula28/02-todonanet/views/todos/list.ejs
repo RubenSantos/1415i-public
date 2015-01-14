@@ -1,5 +1,10 @@
-<% include ./../_layouts/top %>
+<% include ./../_layouts/top-up %>
 
+<% if(user.isAuthenticated) { %>
+<script type="text/javascript" src="/javascripts/todo-list.js" ></script>
+<% } %>
+
+<% include ./../_layouts/top-down %>
   <div class="container">
 
 
@@ -18,7 +23,11 @@
 		  <li class="todo-item" id="todo-<%=todo.id%>" >
             <% if(user.isAuthenticated) { %>
             <span class="pull-right">
-                <a title="Remover" href="/todos/delete/<%=todo.id%>"> <i class="glyphicon glyphicon-remove"></i></a>
+                <a title="Remover" href="/todos/delete/<%=todo.id%>" 
+                   onclick="return removeTodo('<%=todo.id%>');">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </a>
+
                 <a title="Editar"  href="/todos/edit/<%=todo.id%>"> <i class="glyphicon glyphicon-edit"></i></a>
             </span>
             <% } %>
@@ -36,7 +45,7 @@
                     <i class="checkbox glyphicon glyphicon-unchecked" > </i>
                     <% } %>
                 </span>
-                <%= todo.title %>
+                <span class="titlevalue"><%= todo.title %></span>
             </h3>
 			<small class="description text-muted"><%= todo.description %></small>
             <div class="when pull-right"><span class="text-muted"><%=todo.creationDate.toLocaleDateString()%> - <%=todo.creationDate.toLocaleTimeString()%></span></div>

@@ -83,6 +83,14 @@ module.exports = function(app)
         });
     });
 
+    todosRouter.delete('/delete/:id', function deleteTodo(req, res)
+    {
+        db.Todo.deleteById(req.params.id, function(err) {
+            if(err) return next(new Error(err));
+            return res.json({success: true});
+        });
+    });
+
     todosRouter.post('/check/:id', function checkTodo(req, res, next)
     {
         var id = req.params.id;
